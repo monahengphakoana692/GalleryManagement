@@ -103,8 +103,6 @@ public class HelloApplication extends JProApplication
         try
         {
             scene.getStylesheets().add(getClass().getResource("/Style1.css").toExternalForm());
-            //WebAPI.getWebAPI(scene);
-            //System.out.println(WebAPI.getServerInfo());
             stage.setScene(scene);
             stage.setTitle("Gallery Management");
             if (WebAPI.isBrowser())
