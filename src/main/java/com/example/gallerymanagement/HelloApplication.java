@@ -467,6 +467,7 @@ public class HelloApplication extends JProApplication
 
         if(colorChangeTracker<4)
         {
+
             customs.setStyle(colors[colorChangeTracker]);
             rowContainer.setStyle(color[colorChangeTracker]);
             root.setStyle(color1[colorChangeTracker]);
