@@ -28,13 +28,16 @@ public class HelloApplication extends JProApplication
     private static final int THUMBNAIL_WIDTH = 80;
     private static final int THUMBNAIL_HEIGHT = 80;
     private static final int IMAGES_PER_ROW = 13;
+
     public VBox root = new VBox();
     public HBox rootForControlsAndRows = new HBox(10);
     public VBox rowsContainer = new VBox(10);
     public int colorChangeTracker = 0; //initializing
     public int BrowserTracker = 0;
+
     // Add a member flag to check if the customization pane already exists
     private boolean isCustomizationAdded = false;
+
     // Buttons (Right Side)
     Button allImages = new Button("ALL IMAGES");
     Button newImage = new Button("SHARE");
@@ -204,7 +207,8 @@ public class HelloApplication extends JProApplication
 
 
 
-    public void showFullImage(VBox root, ImageView imageView, List<ImageView> listOfImages) {
+    public void showFullImage(VBox root, ImageView imageView, List<ImageView> listOfImages)//for viewing single image fully
+    {
         try {
             HBox fullImagePane = new HBox(20);
 
@@ -255,8 +259,9 @@ public class HelloApplication extends JProApplication
 
             backward.setOnMouseClicked(event ->
             {
+                //browsing through images
                 if (BrowserTracker > 0) {
-                    BrowserTracker--;
+                    BrowserTracker--;//tracking images
                     fullImageView.setImage(listOfImages.get(BrowserTracker).getImage());
                 }
             });
@@ -281,10 +286,12 @@ public class HelloApplication extends JProApplication
             Stage fullImageStage = new Stage();
             fullImageStage.setOnCloseRequest(event ->
             {
+                //disabling the gallery when there is a full image view
                 root.setDisable(false);
                 root.setEffect(null);
             });
 
+            //opening new Scene for new Image view , in full size
             Scene fullImageScene = new Scene(fullImagePane, 1500, 750);
             fullImageScene.getStylesheets().add(getClass().getResource("/Style1.css").toExternalForm());
             fullImageStage.setScene(fullImageScene);
@@ -298,27 +305,28 @@ public class HelloApplication extends JProApplication
         }
     }
 
-    public List<ImageView> loadImages() {
+    public List<ImageView> loadImages()//loading images from the folder
+    {
         List<ImageView> imageViews = new ArrayList<>();
 
         File Fileimage = new File("C://Users//Retshepile Sehloho//IdeaProjects//GalleryManagement//src//main//resources//gallaxy");
 
-        if (Fileimage.exists() && Fileimage.isDirectory())
+        if (Fileimage.exists() && Fileimage.isDirectory())//verifying
         {
             File[] files = Fileimage.listFiles();//releasing the file from the Images file
 
             if (files != null)
             {
-                for (File current : files)
+                for (File current : files)//extracting files
                 {
-                    if (current.isFile() && (current.getName().endsWith(".jpg") || current.getName().endsWith(".jpeg")))
+                    if (current.isFile() && (current.getName().endsWith(".jpg") || current.getName().endsWith(".jpeg")))//filtering fileExtension
                     {
 
                         Image image = new Image(current.toURI().toString());
                         ImageView imageView = new ImageView(image);
-
+                        //setting the width for each imageView
                         imageView.setPreserveRatio(true);
-                        imageView.setFitWidth(THUMBNAIL_WIDTH);
+                        imageView.setFitWidth(THUMBNAIL_WIDTH);//
                         imageView.setFitHeight(THUMBNAIL_HEIGHT);
 
                         imageViews.add(imageView);
@@ -327,10 +335,10 @@ public class HelloApplication extends JProApplication
             }
         }
 
-        return imageViews;
+        return imageViews;//returning list of ImageViews with each holding the image
     }
 
-    public void topMenu(VBox root)
+    public void topMenu(VBox root)//for the top Menu
     {
         HBox topPane = new HBox(10);
         String[] color1 = {
@@ -392,18 +400,19 @@ public class HelloApplication extends JProApplication
 
         for(int i=0;i<labels.size();i++)
         {
-            labels.get(i).setId("EachLabel");
+            labels.get(i).setId("EachLabel");//adding css ID to each label
         }
 
-       return labels;
+       return labels;//returning an array list of labels for color change and resizing
     }
 
-    public void resizeImage(List<ImageView> resizeImage)
+    public void resizeImage(List<ImageView> resizeImage)//increasing the pane holding images
     {
          for(int i =0;i<resizeImage.size();i++)
         {
             double height = resizeImage.get(i).getFitHeight();
             double width = resizeImage.get(i).getFitHeight();
+            //adding ten to the existing
             width = width + 10;
             height = height + 10;
             resizeImage.get(i).setFitHeight(height);
@@ -420,7 +429,7 @@ public class HelloApplication extends JProApplication
         }
     }
 
-    public void desizeImage(List<ImageView> resizeImage)
+    public void desizeImage(List<ImageView> resizeImage)//decreasing the pane holding images
     {
         for(int i =0;i<resizeImage.size();i++)
         {
@@ -467,7 +476,7 @@ public class HelloApplication extends JProApplication
 
         if(colorChangeTracker<4)
         {
-
+            //changing colors at run time for customization
             customs.setStyle(colors[colorChangeTracker]);
             rowContainer.setStyle(color[colorChangeTracker]);
             root.setStyle(color1[colorChangeTracker]);
@@ -475,14 +484,15 @@ public class HelloApplication extends JProApplication
 
         }else
         {
-            colorChangeTracker = 0;
+            //changing colors at run time for customization
+            colorChangeTracker = 0;// to reset the index of the color when all colors are used
             customs.setStyle(colors[colorChangeTracker]);
             rowContainer.setStyle(color[colorChangeTracker]);
             root.setStyle(color1[colorChangeTracker]);
             rootForControlsAndRows.setStyle(color1[colorChangeTracker]);
         }
 
-        colorChangeTracker = colorChangeTracker + 1;
+        colorChangeTracker = colorChangeTracker + 1;//incrementing tools
 
     }
 
