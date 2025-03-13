@@ -307,7 +307,7 @@ public class HelloApplication extends JProApplication
     {
         List<ImageView> imageViews = new ArrayList<>();
 
-        File Fileimage = new File("C://Users//Retshepile Sehloho//IdeaProjects//GalleryManagement//src//main//resources//gallaxy");
+        File Fileimage = new File("src//main//resources//gallaxy");
 
         if (Fileimage.exists() && Fileimage.isDirectory())//verifying
         {
